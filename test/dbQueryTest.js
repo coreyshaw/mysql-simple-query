@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const qbQuery = require('../../util/dbQuery');
+const qbQuery = require('../src/util/dbQuery');
 
 describe('dbQuery Util', () => {
     describe('Select', () => {

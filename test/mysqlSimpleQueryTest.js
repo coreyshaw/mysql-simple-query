@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 
-const mysqlSimpleQuery = require('../mysqlSimpleQuery');
+const mysqlSimpleQuery = require('../src/mysqlSimpleQuery');
 
 describe('SimpleQuery', () => {
     it('query', () => {
