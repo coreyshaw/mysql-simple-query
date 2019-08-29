@@ -4,7 +4,7 @@
   "description": "Simple query wrapper for mysql-promise to make querying, inserting, updating, and deleting easier for developers.",
   "main": "mysqlSimpleQuery.js",
   "scripts": {
-    "test": "mocha $(find test -name '*.js')",
+    "test": "nyc --reporter=html --reporter=text mocha $(find test -name '*.js')",
     "build": "babel src/ --copy-files --out-dir lib"
   },
   "keywords": [

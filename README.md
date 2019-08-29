@@ -1,6 +1,8 @@
 MySQL Simple Query
 =======================================
 
+[![Build Status](https://travis-ci.org/coreyshaw/mysql-simple-query.svg?branch=master)](https://travis-ci.org/coreyshaw/mysql-simple-query)
+
 Simple query wrapper for mysql-promise to make querying, inserting, updating, and deleting easier for developers.
 
 * * *
