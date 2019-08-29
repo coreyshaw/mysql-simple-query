@@ -1,12 +1,9 @@
-const db = require('mysql-promise')();
 const dbQuery = require('./util/dbQuery');
 const { isEmpty } = require('./util/common');
 
 class mysqlSimpleQuery {
-    constructor(creds)
+    constructor()
     {
-        this.creds = creds;
-
         this.selectStatement = '';
         this.joinStatement = {};
         this.whereStatement = {};
@@ -69,11 +66,11 @@ class mysqlSimpleQuery {
     }
 
     queryRaw(query) {
-        return this._queryMysql(query);
+        return query.trim();
     }
 
     // Handles all querying
-    query(rawQuery = false) {
+    query() {
         let queryStatement = '';
 
         if(this.selectStatement) {
@@ -104,15 +101,10 @@ class mysqlSimpleQuery {
 
         queryStatement += ';';
 
-        if(rawQuery)
-        {
-            return queryStatement.trim();
-        }
-
-        return this._queryMysql(queryStatement.trim());
+        return queryStatement.trim();
     }
 
-    insert(table, data, rawQuery = false) {
+    insert(table, data) {
         const last = Object.keys(data)[Object.keys(data).length-1];
         let query = `INSERT INTO ${table} `;
 
@@ -141,15 +133,10 @@ class mysqlSimpleQuery {
 
         query += ')';
 
-        if(rawQuery)
-        {
-            return query;
-        }
-
-        return this._queryMysql(query);
+        return query.trim();
     }
 
-    update(table, data, rawQuery = false) {
+    update(table, data) {
         let query = '';
 
         query += `UPDATE ${table} SET ${dbQuery.update(data)}`;
@@ -158,15 +145,10 @@ class mysqlSimpleQuery {
             query += ` ${this.parseWhere()}`;
         }
 
-        if(rawQuery)
-        {
-            return query;
-        }
-
-        return this._queryMysql(query);
+        return query.trim();
     }
 
-    delete(table, rawQuery = false)
+    delete(table)
     {
         let query = '';
 
@@ -176,25 +158,7 @@ class mysqlSimpleQuery {
             query += ` ${this.parseWhere()}`;
         }
 
-        if(rawQuery)
-        {
-            return query;
-        }
-
-        return this._queryMysql(query);
-    }
-
-    _queryMysql(query) {
-        db.configure({
-            host: process.env.MYSQL_SQ_HOST || this.creds.host,
-            database: process.env.MYSQL_SQ_DATABASE || this.creds.database,
-            user: process.env.MYSQL_SQ_USER || this.creds.user,
-            password: process.env.MYSQL_SQ_PASSWORD || this.creds.password,
-        });
-
-        return db.query(query.trim()).spread(function (data) {
-            return data;
-        });
+        return query.trim();
     }
 }
 

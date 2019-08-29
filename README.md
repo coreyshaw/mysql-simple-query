@@ -3,7 +3,7 @@ MySQL Simple Query
 
 [![Build Status](https://travis-ci.org/coreyshaw/mysql-simple-query.svg?branch=master)](https://travis-ci.org/coreyshaw/mysql-simple-query)
 
-Simple query wrapper for mysql-promise to make querying, inserting, updating, and deleting easier for developers.
+Simple mysql query builder to make querying, inserting, updating, and deleting easier for developers. This library can be used with any mysql library. 
 
 * * *
 
@@ -27,26 +27,8 @@ npm install --save mysql-simple-query
 ### Configuring
 
 All calls need to be have a reference to the mysql-simple-query class.
-Passing credentials to mysql-promise can be done in two ways:
 
 ```js
-const mysqlQuery = require("mysql-simple-query");
-
-const db = new mysqlQuery({
-    host: 'someHost',
-    database: 'someDatabase',
-    user: 'someUser',
-    password: 'somePassword'
-});
-```
-
-OR it can be configured using the following environment variables placed on your server or system.
-```js
-MYSQL_SQ_HOST="someHost"
-MYSQL_SQ_DATABASE="someDatabse"
-MYSQL_SQ_USER="someUser"
-MYSQL_SQ_PASSWORD="somePassword"
-
 const mysqlQuery = require("mysql-simple-query");
 
 const db = new mysqlQuery();

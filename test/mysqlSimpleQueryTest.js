@@ -59,6 +59,7 @@ describe('SimpleQuery', () => {
 
         test.where('product_id', 2222);
         const results = test.delete('product_option_set', true);
+        console.log(results);
         expect(results).to.equal('DELETE FROM product_option_set WHERE product_id="2222"');
     });
 });
