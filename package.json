@@ -1,16 +1,35 @@
 {
-  "name": "jsdbquery",
+  "name": "mysql-simple-query",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Simple query wrapper for mysql-promise to make querying, inserting, updating, and deleting easier for developers.",
+  "main": "mysqlSimpleQuery.js",
   "scripts": {
-    "test": "mocha $(find test -name '*.js')"
+    "test": "mocha $(find test -name '*.js')",
+    "build": "babel src/ --copy-files --out-dir lib"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "mysql",
+    "mysql-promise",
+    "mysql query",
+    "mysql query builder",
+    "sql querying",
+    "sql query builder",
+    "mysql helper",
+    "sql helper"
+  ],
+  "author": "Corey Shaw",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coreyshaw/mysql-simple-query"
+  },
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
+    "eslint": "^6.2.2",
     "mocha": "^6.2.0"
   },
   "dependencies": {
