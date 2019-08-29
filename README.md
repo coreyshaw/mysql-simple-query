@@ -7,7 +7,7 @@ Simple query wrapper for mysql-promise to make querying, inserting, updating, an
 
 * * *
 
-This library takes annoyance out of writing raw MySQL queries in Javascript. The queries are easy to read in your code and easy to build upon to build complex queries. 
+This library takes the annoyance out of writing raw MySQL queries in Javascript. The queries are easy to read in your code and easy to build complex queries. 
 
 ## Install
 
@@ -27,7 +27,7 @@ npm install --save mysql-simple-query
 ### Configuring
 
 All calls need to be have a reference to the mysql-simple-query class.
-Passing credentials to mysql-promise can be done in two ways
+Passing credentials to mysql-promise can be done in two ways:
 
 ```js
 const mysqlQuery = require("mysql-simple-query");
@@ -67,7 +67,7 @@ results.then(function(result) {
    console.log(result);
 });
 ```
-If `Select *` is neede you can leave off the db.select and it will be defaulted.
+If `Select *` is needed you can leave off the db.select and it will be defaulted.
 
 #### Query with select, from, join, and where
 ```js
