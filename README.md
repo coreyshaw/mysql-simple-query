@@ -141,18 +141,6 @@ If you need to pass in your own custom query into mysql-promise you can do so by
 const results = db.queryRaw('SELECT * FROM TABLE...');
 ````
 
-### Overriding mysql-promise
-On the `query`, `insert`, `update`, and `delete` methods, mysql-promise can be ignored by passing a `true` in the last param. This will return the raw sql syntax.
-
-IE:
-```js
-db.select('id, name');
-db.from('users');
-db.where('name', 'foo');
-
-const results = db.query(true);
-````
-
 ### Component Definitions
 #### db.select()
 ```js

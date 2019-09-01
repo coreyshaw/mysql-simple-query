@@ -12,7 +12,7 @@ describe('SimpleQuery', () => {
         test.where('key', 'value');
         test.groupBy('key');
         test.orderBy('key');
-        const testResults = test.query(true);
+        const testResults = test.query();
 
         expect(testResults).to.equal('SELECT * FROM table INNER JOIN table ON table_1 = table_2 WHERE key="value" GROUP BY key ORDER BY key ASC;');
     });
@@ -58,7 +58,7 @@ describe('SimpleQuery', () => {
         const test = new mysqlSimpleQuery();
 
         test.where('product_id', 2222);
-        const results = test.delete('product_option_set', true);
+        const results = test.delete('product_option_set');
         console.log(results);
         expect(results).to.equal('DELETE FROM product_option_set WHERE product_id="2222"');
     });

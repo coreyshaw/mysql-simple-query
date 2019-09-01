@@ -1,6 +1,6 @@
 {
   "name": "mysql-simple-query",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple query wrapper for mysql-promise to make querying, inserting, updating, and deleting easier for developers.",
   "main": "mysqlSimpleQuery.js",
   "scripts": {
@@ -15,7 +15,11 @@
     "sql querying",
     "sql query builder",
     "mysql helper",
-    "sql helper"
+    "sql helper",
+    "MySQL Query Builder",
+    "Mysql Query Builder",
+    "MySql",
+    "MySQL"
   ],
   "author": "Corey Shaw",
   "repository": {
