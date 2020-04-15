@@ -1,6 +1,6 @@
 {
   "name": "mysql-simple-query",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple query wrapper for mysql-promise to make querying, inserting, updating, and deleting easier for developers.",
   "main": "mysqlSimpleQuery.js",
   "scripts": {
