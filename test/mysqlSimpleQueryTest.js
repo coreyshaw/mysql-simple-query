@@ -17,6 +17,57 @@ describe('SimpleQuery', () => {
         expect(testResults).to.equal('SELECT * FROM table INNER JOIN table ON table_1 = table_2 WHERE key="value" GROUP BY key ORDER BY key ASC;');
     });
 
+    it('query with like statement', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.join('table', 'table_1 = table_2');
+        test.whereLike('key', 'value');
+        test.groupBy('key');
+        test.orderBy('key');
+        const testResults = test.query();
+
+        console.log(testResults);
+
+        expect(testResults).to.equal('SELECT * FROM table INNER JOIN table ON table_1 = table_2 WHERE key LIKE "value" GROUP BY key ORDER BY key ASC;');
+    });
+
+    it('where like with wildcard', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.whereLike('key', '%value%');
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table WHERE key LIKE "%value%";');
+    });
+
+    it('where like with multiple statements AND', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.whereLike('key', '%value%');
+        test.whereLike('key2', '%value2%');
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table WHERE key LIKE "%value%" AND key2 LIKE "%value2%";');
+    });
+
+    it('where like with multiple statements OR', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.whereLike('key', '%value%', 'OR');
+        test.whereLike('key2', '%value2%');
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table WHERE key LIKE "%value%" OR key2 LIKE "%value2%";');
+    });
+
     it('insert', () => {
         const test = new mysqlSimpleQuery();
 

@@ -7,6 +7,8 @@ class mysqlSimpleQuery {
         this.selectStatement = '';
         this.joinStatement = {};
         this.whereStatement = {};
+        this.whereLikeStatement = {};
+        this.whereLikeCondition = null;
         this.groupByStatement = '';
         this.orderByStatement = '';
         this.limitStatement = '';
@@ -37,9 +39,25 @@ class mysqlSimpleQuery {
         this.whereStatement[key] = value;
     }
 
+    whereLike(key, value, condition) {
+        this.whereLikeStatement[key] = value;
+
+        if (condition) {
+            this.whereLikeCondition = condition;
+        }
+    }
+
     parseWhere() {
         if(!isEmpty(this.whereStatement)) {
             return dbQuery.parseWhere(this.whereStatement);
+        }
+
+        return '';
+    }
+
+    parseWhereLike() {
+        if(!isEmpty(this.whereLikeStatement)) {
+            return dbQuery.parseWhereLike(this.whereLikeStatement, this.whereLikeCondition);
         }
 
         return '';
@@ -85,6 +103,10 @@ class mysqlSimpleQuery {
 
         if(this.parseWhere() !== '') {
             queryStatement += ` ${this.parseWhere()}`;
+        }
+
+        if(this.parseWhereLike() !== '') {
+            queryStatement += ` ${this.parseWhereLike()}`;
         }
 
         if(this.groupByStatement !== '') {
