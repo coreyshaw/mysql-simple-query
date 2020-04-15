@@ -68,6 +68,18 @@ describe('SimpleQuery', () => {
         expect(testResults).to.equal('SELECT * FROM table WHERE key LIKE "%value%" OR key2 LIKE "%value2%";');
     });
 
+    it('With where and where like statement', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.where('key', '%value%');
+        test.whereLike('key2', '%value2%');
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table WHERE key="%value%" AND key2 LIKE "%value2%";');
+    });
+
     it('insert', () => {
         const test = new mysqlSimpleQuery();
 

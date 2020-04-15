@@ -57,7 +57,7 @@ class mysqlSimpleQuery {
 
     parseWhereLike() {
         if(!isEmpty(this.whereLikeStatement)) {
-            return dbQuery.parseWhereLike(this.whereLikeStatement, this.whereLikeCondition);
+            return dbQuery.parseWhereLike(this.whereLikeStatement, this.whereLikeCondition, this.whereStatement);
         }
 
         return '';

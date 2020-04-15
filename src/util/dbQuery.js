@@ -55,7 +55,7 @@ const parseWhere = (whereObject) => {
     return `WHERE ${whereStatement.join(' AND ')}`;
 };
 
-const parseWhereLike = (whereObject, orStatement = false) => {
+const parseWhereLike = (whereObject, orStatement = false, where = false) => {
     let whereStatement = [];
 
     for (let key of Object.keys(whereObject)) {
@@ -64,10 +64,10 @@ const parseWhereLike = (whereObject, orStatement = false) => {
     }
 
     if (orStatement) {
-        return `WHERE ${whereStatement.join(' OR ')}`;
+        return `${(where ? 'AND' : 'WHERE')} ${whereStatement.join(' OR ')}`;
     }
 
-    return `WHERE ${whereStatement.join(' AND ')}`;
+    return `${(where ? 'AND' : 'WHERE')} ${whereStatement.join(' AND ')}`;
 };
 
 const groupBy = (key) => {
