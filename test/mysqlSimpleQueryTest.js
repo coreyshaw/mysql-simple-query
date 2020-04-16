@@ -28,8 +28,6 @@ describe('SimpleQuery', () => {
         test.orderBy('key');
         const testResults = test.query();
 
-        console.log(testResults);
-
         expect(testResults).to.equal('SELECT * FROM table INNER JOIN table ON table_1 = table_2 WHERE key LIKE "value" GROUP BY key ORDER BY key ASC;');
     });
 
@@ -80,6 +78,29 @@ describe('SimpleQuery', () => {
         expect(testResults).to.equal('SELECT * FROM table WHERE key="%value%" AND key2 LIKE "%value2%";');
     });
 
+    it('Query with limit', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.limit(100);
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table LIMIT 100;');
+    });
+
+    it('Query with limit with offset', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.limit(100);
+        test.offset(200);
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table LIMIT 100 OFFSET 200;');
+    });
+
     it('insert', () => {
         const test = new mysqlSimpleQuery();
 
@@ -122,7 +143,6 @@ describe('SimpleQuery', () => {
 
         test.where('product_id', 2222);
         const results = test.delete('product_option_set');
-        console.log(results);
         expect(results).to.equal('DELETE FROM product_option_set WHERE product_id="2222"');
     });
 });

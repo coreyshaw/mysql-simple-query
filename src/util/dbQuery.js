@@ -97,6 +97,15 @@ const limit = (number) => {
     throw new Error('Number is required for limit');
 };
 
+const offset = (number) => {
+    if(number)
+    {
+        return `OFFSET ${number}`;
+    }
+
+    throw new Error('Number is required for limit');
+};
+
 const update = (data) => {
     let updateData = [];
 
@@ -117,5 +126,6 @@ module.exports = {
     groupBy,
     orderBy,
     limit,
-    update
+    update,
+    offset
 };

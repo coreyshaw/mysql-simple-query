@@ -13,6 +13,7 @@ class mysqlSimpleQuery {
         this.groupByStatement = '';
         this.orderByStatement = '';
         this.limitStatement = '';
+        this.offsetStatement = '';
         this.table = null;
     }
 
@@ -85,6 +86,12 @@ class mysqlSimpleQuery {
         }
     }
 
+    offset(number) {
+        if(number) {
+            this.offsetStatement = dbQuery.offset(number);
+        }
+    }
+
     queryRaw(query) {
         return query.trim();
     }
@@ -121,6 +128,10 @@ class mysqlSimpleQuery {
 
         if(this.limitStatement !== '') {
             queryStatement += ` ${this.limitStatement}`;
+        }
+
+        if(this.offsetStatement !== '') {
+            queryStatement += ` ${this.offsetStatement}`;
         }
 
         queryStatement += ';';
