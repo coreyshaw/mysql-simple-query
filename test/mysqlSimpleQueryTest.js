@@ -83,10 +83,10 @@ describe('SimpleQuery', () => {
 
         test.select('*');
         test.from('table');
-        test.whereBetween('column', ['1', '2']);
+        test.whereBetween('column', [1, 2]);
         const testResults = test.query();
 
-        expect(testResults).to.equal('SELECT * FROM table WHERE column BETWEEN "1" AND "2";');
+        expect(testResults).to.equal('SELECT * FROM table WHERE column BETWEEN 1 AND 2;');
     });
 
     it('With where in between and other where statement', () => {
@@ -95,10 +95,10 @@ describe('SimpleQuery', () => {
         test.select('*');
         test.from('table');
         test.where('key', '%value%');
-        test.whereBetween('column', ['1', '2']);
+        test.whereBetween('column', [1, 2]);
         const testResults = test.query();
 
-        expect(testResults).to.equal('SELECT * FROM table WHERE key="%value%" AND column BETWEEN "1" AND "2";');
+        expect(testResults).to.equal('SELECT * FROM table WHERE key="%value%" AND column BETWEEN 1 AND 2;');
     });
 
     it('Query with limit', () => {
