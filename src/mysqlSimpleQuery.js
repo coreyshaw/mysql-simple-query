@@ -51,6 +51,10 @@ class mysqlSimpleQuery {
         }
     }
 
+    whereBetween(key, value) {
+        this.whereLikeStatement[key] = value;
+    }
+
     parseWhere() {
         if(!isEmpty(this.whereStatement)) {
             return dbQuery.parseWhere(this.whereStatement);
