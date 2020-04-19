@@ -9,6 +9,7 @@ class mysqlSimpleQuery {
         this.whereStatement = {};
         this.whereConditionUsed = false;
         this.whereLikeStatement = {};
+        this.whereBetweenStatement = {};
         this.whereLikeCondition = null;
         this.groupByStatement = '';
         this.orderByStatement = '';
@@ -66,6 +67,14 @@ class mysqlSimpleQuery {
         return '';
     }
 
+    parseWhereBetween() {
+        if(!isEmpty(this.whereBetweenStatement)) {
+            return dbQuery.parseWhereBetween(this.whereBetweenStatement);
+        }
+
+        return '';
+    }
+
     groupBy(key) {
         if(key)
         {
@@ -116,6 +125,10 @@ class mysqlSimpleQuery {
 
         if(this.parseWhereLike() !== '') {
             queryStatement += ` ${this.parseWhereLike()}`;
+        }
+
+        if(this.parseWhereBetween() !== '') {
+            queryStatement += ` ${this.parseWhereBetween()}`;
         }
 
         if(this.groupByStatement !== '') {
