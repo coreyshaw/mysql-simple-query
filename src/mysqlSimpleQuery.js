@@ -51,8 +51,8 @@ class mysqlSimpleQuery {
         }
     }
 
-    whereBetween(key, value) {
-        this.whereBetweenStatement[key] = value;
+    whereBetween(key, array) {
+        this.whereBetweenStatement[key] = array;
     }
 
     parseWhere() {
@@ -73,7 +73,7 @@ class mysqlSimpleQuery {
 
     parseWhereBetween() {
         if(!isEmpty(this.whereBetweenStatement)) {
-            return dbQuery.parseWhereBetween(this.whereBetweenStatement);
+            return dbQuery.parseWhereBetween(this.whereBetweenStatement, this.whereConditionUsed);
         }
 
         return '';
