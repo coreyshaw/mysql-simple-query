@@ -52,7 +52,7 @@ class mysqlSimpleQuery {
     }
 
     whereBetween(key, value) {
-        this.whereLikeStatement[key] = value;
+        this.whereBetweenStatement[key] = value;
     }
 
     parseWhere() {
