@@ -7,6 +7,7 @@ class mysqlSimpleQuery {
         this.selectStatement = '';
         this.joinStatement = {};
         this.whereStatement = {};
+        this.whereInStatement = {};
         this.whereConditionUsed = false;
         this.whereLikeStatement = {};
         this.whereBetweenStatement = {};
@@ -56,6 +57,10 @@ class mysqlSimpleQuery {
         }
     }
 
+    whereIn(key, array) {
+        this.whereInStatement[key] = array;
+    }
+
     whereBetween(key, array) {
         this.whereBetweenStatement[key] = array;
     }
@@ -71,6 +76,14 @@ class mysqlSimpleQuery {
     parseWhereLike() {
         if(!isEmpty(this.whereLikeStatement)) {
             return dbQuery.parseWhereLike(this.whereLikeStatement, this.whereLikeCondition, this.whereConditionUsed);
+        }
+
+        return '';
+    }
+
+    parseWhereIn() {
+        if(!isEmpty(this.whereInStatement)) {
+            return dbQuery.parseWhereIn(this.whereInStatement, this.whereConditionUsed);
         }
 
         return '';
@@ -130,6 +143,10 @@ class mysqlSimpleQuery {
 
         if(this.parseWhere() !== '') {
             queryStatement += ` ${this.parseWhere()}`;
+        }
+
+        if(this.parseWhereIn() !== '') {
+            queryStatement += ` ${this.parseWhereIn()}`;
         }
 
         if(this.parseWhereLike() !== '') {

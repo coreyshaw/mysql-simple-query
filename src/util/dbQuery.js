@@ -59,6 +59,17 @@ const parseWhere = (whereObject, orStatement = false) => {
     return `WHERE ${whereStatement.join(' AND ')}`;
 };
 
+const parseWhereIn = (whereObject, where = false) => {
+    let whereStatement = [];
+
+    for (let key of Object.keys(whereObject)) {
+        const value = whereObject[key];
+        whereStatement.push(`${key} IN (${value.join(',')})`);
+    }
+
+    return `${(where ? 'AND' : 'WHERE')} ${whereStatement.join(' AND ')}`;
+};
+
 const parseWhereLike = (whereObject, orStatement = false, where = false) => {
     let whereStatement = [];
 
@@ -137,6 +148,7 @@ module.exports = {
     from,
     parseJoin,
     parseWhere,
+    parseWhereIn,
     parseWhereLike,
     parseWhereBetween,
     groupBy,

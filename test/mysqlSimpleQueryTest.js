@@ -168,4 +168,16 @@ describe('SimpleQuery', () => {
         const results = test.delete('product_option_set');
         expect(results).to.equal('DELETE FROM product_option_set WHERE product_id="2222"');
     });
+
+    it('query with where in clause', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.where('key', '%value%');
+        test.whereIn('column', [1, 2]);
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table WHERE key="%value%" AND column IN (1,2);');
+    });
 });
