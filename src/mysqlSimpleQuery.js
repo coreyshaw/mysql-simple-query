@@ -10,6 +10,7 @@ class mysqlSimpleQuery {
         this.whereConditionUsed = false;
         this.whereLikeStatement = {};
         this.whereBetweenStatement = {};
+        this.whereCondition = null;
         this.whereLikeCondition = null;
         this.groupByStatement = '';
         this.orderByStatement = '';
@@ -38,9 +39,13 @@ class mysqlSimpleQuery {
         return '';
     }
 
-    where(key, value) {
+    where(key, value, condition) {
         this.whereStatement[key] = value;
         this.whereConditionUsed = true;
+
+        if (condition) {
+            this.whereCondition = condition;
+        }
     }
 
     whereLike(key, value, condition) {
@@ -57,7 +62,7 @@ class mysqlSimpleQuery {
 
     parseWhere() {
         if(!isEmpty(this.whereStatement)) {
-            return dbQuery.parseWhere(this.whereStatement);
+            return dbQuery.parseWhere(this.whereStatement, this.whereCondition);
         }
 
         return '';

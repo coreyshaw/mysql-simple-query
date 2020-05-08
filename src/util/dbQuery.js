@@ -44,12 +44,16 @@ const parseJoin = (joinObject) => {
     return joinStatement.join(' ');
 };
 
-const parseWhere = (whereObject) => {
+const parseWhere = (whereObject, orStatement = false) => {
     let whereStatement = [];
 
     for (let key of Object.keys(whereObject)) {
         const value = whereObject[key];
         whereStatement.push(`${key}="${value}"`);
+    }
+
+    if (orStatement) {
+        return `WHERE ${whereStatement.join(' OR ')}`;
     }
 
     return `WHERE ${whereStatement.join(' AND ')}`;
