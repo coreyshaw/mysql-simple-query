@@ -178,6 +178,6 @@ describe('SimpleQuery', () => {
         test.whereIn('column', [1, 2]);
         const testResults = test.query();
 
-        expect(testResults).to.equal('SELECT * FROM table WHERE key="%value%" AND column IN (1,2);');
+        expect(testResults).to.equal('SELECT * FROM table WHERE key="%value%" AND column IN ("1","2");');
     });
 });

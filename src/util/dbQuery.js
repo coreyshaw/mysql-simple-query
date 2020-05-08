@@ -64,7 +64,8 @@ const parseWhereIn = (whereObject, where = false) => {
 
     for (let key of Object.keys(whereObject)) {
         const value = whereObject[key];
-        whereStatement.push(`${key} IN (${value.join(',')})`);
+        const inString = `"${value.join('","')}"`;
+        whereStatement.push(`${key} IN (${inString})`);
     }
 
     return `${(where ? 'AND' : 'WHERE')} ${whereStatement.join(' AND ')}`;
