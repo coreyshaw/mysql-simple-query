@@ -8,7 +8,6 @@ class mysqlSimpleQuery {
         this.joinStatement = {};
         this.whereStatement = {};
         this.whereInStatement = {};
-        this.whereConditionUsed = false;
         this.whereLikeStatement = {};
         this.whereBetweenStatement = {};
         this.whereCondition = null;
@@ -18,6 +17,10 @@ class mysqlSimpleQuery {
         this.limitStatement = '';
         this.offsetStatement = '';
         this.table = null;
+        this.whereConditionUsed = false;
+        this.whereLikeConditionUsed = false;
+        this.whereInConditionUsed = false;
+        this.whereBetweenConditionUsed = false;
     }
 
     select(select) {
@@ -51,6 +54,7 @@ class mysqlSimpleQuery {
 
     whereLike(key, value, condition) {
         this.whereLikeStatement[key] = value;
+        this.whereLikeConditionUsed = true;
 
         if (condition) {
             this.whereLikeCondition = condition;
@@ -59,9 +63,12 @@ class mysqlSimpleQuery {
 
     whereIn(key, array) {
         this.whereInStatement[key] = array;
+        this.whereInConditionUsed = true;
     }
 
     whereBetween(key, array, condition) {
+        this.whereBetweenConditionUsed = true;
+
         if (condition) {
             this.whereLikeCondition = condition;
         }
@@ -77,31 +84,43 @@ class mysqlSimpleQuery {
         return '';
     }
 
-    parseWhereLike() {
-        if(!isEmpty(this.whereLikeStatement)) {
-            return dbQuery.parseWhereLike(this.whereLikeStatement, this.whereLikeCondition, this.whereConditionUsed);
+    parseWhereIn() {
+        let whereClauseFound = false;
+
+        if (this.whereConditionUsed) {
+            whereClauseFound = true;
+        }
+
+        if(!isEmpty(this.whereInStatement)) {
+            return dbQuery.parseWhereIn(this.whereInStatement, whereClauseFound);
         }
 
         return '';
     }
 
-    parseWhereIn() {
-        if(!isEmpty(this.whereInStatement)) {
-            return dbQuery.parseWhereIn(this.whereInStatement, this.whereConditionUsed);
+    parseWhereLike() {
+        let whereClauseFound = false;
+
+        if (this.whereConditionUsed || this.whereInConditionUsed) {
+            whereClauseFound = true;
+        }
+
+        if(!isEmpty(this.whereLikeStatement)) {
+            return dbQuery.parseWhereLike(this.whereLikeStatement, this.whereLikeCondition, whereClauseFound);
         }
 
         return '';
     }
 
     parseWhereBetween() {
-        let whereInStatementUsed = false;
+        let whereClauseFound = false;
 
-        if(!isEmpty(this.whereInStatement)) {
-            whereInStatementUsed = true;
+        if (this.whereConditionUsed || this.whereInConditionUsed || this.whereLikeConditionUsed) {
+            whereClauseFound = true;
         }
 
         if(!isEmpty(this.whereBetweenStatement)) {
-            return dbQuery.parseWhereBetween(this.whereBetweenStatement, whereInStatementUsed);
+            return dbQuery.parseWhereBetween(this.whereBetweenStatement, whereClauseFound);
         }
 
         return '';
