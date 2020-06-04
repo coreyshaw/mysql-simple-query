@@ -180,4 +180,20 @@ describe('SimpleQuery', () => {
 
         expect(testResults).to.equal('SELECT * FROM table WHERE key="%value%" AND column IN ("1","2");');
     });
+
+    it('query with where in and where between clause', () => {
+        const test = new mysqlSimpleQuery();
+
+        const size = '18x8.5';
+        const sizeArray = size.split('x');
+        const sizeFormatted = `${sizeArray[0]}.00x${sizeArray[1]}.00`;
+
+        test.select('*');
+        test.from('table');
+        test.whereIn('size', [size, sizeFormatted]);
+        test.whereBetween('offset', ['123', '456']);
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table WHERE size IN ("18x8.5","18.00x8.5.00") AND offset BETWEEN 123 AND 456;');
+    });
 });
