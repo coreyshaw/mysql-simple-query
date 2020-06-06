@@ -17,6 +17,17 @@ describe('SimpleQuery', () => {
         expect(testResults).to.equal('SELECT * FROM table INNER JOIN table ON table_1 = table_2 WHERE key="value" GROUP BY key ORDER BY key ASC;');
     });
 
+    it('join with left join', () => {
+        const test = new mysqlSimpleQuery();
+
+        test.select('*');
+        test.from('table');
+        test.join('table', 'table_1 = table_2', 'LEFT');
+        const testResults = test.query();
+
+        expect(testResults).to.equal('SELECT * FROM table LEFT JOIN table ON table_1 = table_2;');
+    });
+
     it('query with like statement', () => {
         const test = new mysqlSimpleQuery();
 

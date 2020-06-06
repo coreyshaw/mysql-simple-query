@@ -28,7 +28,7 @@ const from = (table) => {
     throw new Error('Table name is required');
 };
 
-const parseJoin = (joinObject) => {
+const parseJoin = (joinObject, type = 'INNER') => {
     if(joinObject === {})
     {
         return '';
@@ -38,7 +38,7 @@ const parseJoin = (joinObject) => {
 
     for (let key of Object.keys(joinObject)) {
         const value = joinObject[key];
-        joinStatement.push(`INNER JOIN ${key} ON ${value}`);
+        joinStatement.push(`${type} JOIN ${key} ON ${value}`);
     }
 
     return joinStatement.join(' ');
