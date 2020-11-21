@@ -209,7 +209,7 @@ class mysqlSimpleQuery {
         return queryStatement.trim();
     }
 
-    insert(table, data) {
+    insert(table, data, returnID = false) {
         const last = Object.keys(data)[Object.keys(data).length-1];
         let query = `INSERT INTO ${table} `;
 
@@ -237,6 +237,10 @@ class mysqlSimpleQuery {
         });
 
         query += ')';
+
+        if (returnID) {
+            query += ';SELECT LAST_INSERT_ID() AS `id`;';
+        }
 
         return query.trim();
     }

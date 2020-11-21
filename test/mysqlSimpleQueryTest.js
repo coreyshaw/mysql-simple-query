@@ -142,9 +142,21 @@ describe('SimpleQuery', () => {
             'product_id': 1111,
             'option_set_uuid': 2222,
             'datetime': '2019-08-27 03:11:06'
-        }, true);
+        });
 
         expect(results).to.equal('INSERT INTO product_option_set (product_id,option_set_uuid,datetime) VALUES (\'1111\',\'2222\',\'2019-08-27 03:11:06\')');
+    });
+
+    it('insert with return ID', () => {
+        const test = new mysqlSimpleQuery();
+
+        const results = test.insert('product_option_set', {
+            'product_id': 1111,
+            'option_set_uuid': 2222,
+            'datetime': '2019-08-27 03:11:06'
+        }, true);
+
+        expect(results).to.equal('INSERT INTO product_option_set (product_id,option_set_uuid,datetime) VALUES (\'1111\',\'2222\',\'2019-08-27 03:11:06\');SELECT LAST_INSERT_ID() AS `id`;');
     });
 
     it('update without where clause', () => {
