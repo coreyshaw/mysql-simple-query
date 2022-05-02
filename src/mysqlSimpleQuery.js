@@ -230,9 +230,9 @@ class mysqlSimpleQuery {
             let value = data[key];
             if(key !== last)
             {
-                query += `'${value}',`
+                query += `'${value.toString().replace(/'/g, "\\\'")}',`
             } else {
-                query += `'${value}'`
+                query += `'${value.toString().replace(/'/g, "\\\'")}'`
             }
         });
 

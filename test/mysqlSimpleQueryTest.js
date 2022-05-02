@@ -159,6 +159,18 @@ describe('SimpleQuery', () => {
         expect(results).to.equal('INSERT INTO product_option_set (product_id,option_set_uuid,datetime) VALUES (\'1111\',\'2222\',\'2019-08-27 03:11:06\');SELECT LAST_INSERT_ID() AS `id`;');
     });
 
+    it('insert with single quotes in values', () => {
+        const test = new mysqlSimpleQuery();
+
+        const results = test.insert('product_option_set', {
+            'product_id': "this is a's test",
+            'option_set_uuid': 2222,
+            'datetime': '2019-08-27 03:11:06'
+        }, true);
+
+        expect(results).to.equal("INSERT INTO product_option_set (product_id,option_set_uuid,datetime) VALUES ('this is a\\'s test','2222','2019-08-27 03:11:06');SELECT LAST_INSERT_ID() AS `id`;");
+    });
+
     it('update without where clause', () => {
         const test = new mysqlSimpleQuery();
 
